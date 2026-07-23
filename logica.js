@@ -14,7 +14,8 @@ function menu(){
 
     switch(opcion){
         case "1":
-            registrar(menu);
+            //registrar(menu);
+            console.log("ingrese datos...")
             break;
         case "2":
             mostrar(menu);
@@ -36,3 +37,21 @@ function menu(){
             menu();
     }
 }
+function registrar(callback){
+    let numero = parseInt(prompt("numero de habitacion"));
+    let tipo = prompt("tipo de habitacion(-Sencilla-Doble-Suite-)");
+    let precioNoche = parseFloat(prompt("Precio por noche"));
+    let estado = prompt("Estado de la habitacion)(-libre-Ocupada-Limpieza-)")
+    let huesped = prompt("nombre del huesped");
+    
+    let habitaciones = {
+        numero,
+        tipo,
+        precioNoche,
+        estado,
+        huesped
+    };
+    console.log("validando informacion de la habitacion...");
+    
+}
+menu();
