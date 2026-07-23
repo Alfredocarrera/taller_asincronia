@@ -1,6 +1,6 @@
 //creacion de menu de hotel "5 sonrisas"
-let habitaciones = []; // arreglo de la variable habitaciones donde se almacena todos las caracteristicas del objeto habitacion.
-
+let habitaciones = []; // arreglo de la variable habitaciones donde se almacena todos las caracteristicas 
+                       // del objeto habitacion.
 function menu(){
     let opcion = prompt(                                        
         "************** Hotel 5 Sonrisas **************\n"+
@@ -12,7 +12,7 @@ function menu(){
         "6. Salir"
     )
 
-    switch(opcion){
+    switch(opcion){ //sekeccion de menu que es recursivo
         case "1":
             registrar(menu);
             console.log("ingrese datos...")
