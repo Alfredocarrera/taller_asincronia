@@ -14,7 +14,7 @@ function menu(){
 
     switch(opcion){
         case "1":
-            //registrar(menu);
+            registrar(menu);
             console.log("ingrese datos...")
             break;
         case "2":
@@ -37,6 +37,8 @@ function menu(){
             menu();
     }
 }
+
+
 function registrar(callback){
     let numero = parseInt(prompt("numero de habitacion"));
     let tipo = prompt("tipo de habitacion(-Sencilla-Doble-Suite-)");
@@ -44,14 +46,23 @@ function registrar(callback){
     let estado = prompt("Estado de la habitacion)(-libre-Ocupada-Limpieza-)")
     let huesped = prompt("nombre del huesped");
     
-    let habitaciones = {
+    let habitacion = {
         numero,
         tipo,
         precioNoche,
         estado,
         huesped
     };
+
     console.log("validando informacion de la habitacion...");
-    
+    console.log(habitacion);
+    setTimeout(function(){
+        habitaciones.push(habitacion); //ingreso los elementos del diccionario habitacion en el arreglo habitaciones
+        console.log("Habitacion registrada, "+numero, +huesped); // imprime datos de numero de habitacion y nombre del huesped que se registro
+        callback(); // llamada en espera 
+    }, 2000);
+
 }
+
+
 menu();
