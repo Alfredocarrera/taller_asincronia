@@ -91,7 +91,7 @@ function buscar(callback){
 }
 function actualizar(callback){
      let input = prompt("Numero de habitacion a actualizar:");
-     
+
      if (!input){
         console.log("operacion cancelada.");
         if (typeof callback === "function") callback();
@@ -134,5 +134,41 @@ function actualizar(callback){
             callback();
         }
     }, 3000);
+}
+function eliminar(callback) {
+    let input = prompt("Número de habitación a eliminar:");
+
+    // Si el usuario cancela o deja el prompt vacío, regresamos de inmediato
+    if (!input) {
+        console.log("Operación cancelada.");
+        if (typeof callback === "function") callback();
+        return;
+    }
+
+    let num = parseInt(input, 10);
+
+    // 1. Buscamos el índice de la habitación
+    let posicion = habitaciones.findIndex(function(habitacion) {  //El método .findIndex() recorre el arreglo habitaciones elemento por elemento
+        return habitacion.numero === num; //Si encuentra la habitación cuya propiedad numero sea igual a num, devuelve la posición del arreglo.
+    });
+
+    // 2. Verificamos si existe el elemento en el arreglo
+    if (posicion !== -1) {
+        // Guardamos los datos antes de borrar para mostrar el resultado
+        let habitacionEliminada = habitaciones[posicion];
+
+        // 3. Eliminamos el elemento en esa posición
+        habitaciones.splice(posicion, 1);  //El método .splice(posicion, cantidad) modifica el arreglo original la cantidad 1 es el numero de elementos que quiero eliminar.
+                                            // desde la posicion que encuentre.
+        console.log("========== Habitación Eliminada ==========");
+        console.log(`Se eliminó la habitación número ${habitacionEliminada.numero} (${habitacionEliminada.tipo}).`);
+    } else {
+        console.log("Habitación no encontrada. No se realizó ninguna eliminación.");
+    }
+
+    // 4. Volvemos al menú inmediatamente llamando al callback
+    if (typeof callback === "function") {
+        callback();
+    }
 }
 menu();
