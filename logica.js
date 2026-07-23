@@ -61,7 +61,15 @@ function registrar(callback){
         console.log("Habitacion registrada, "+numero, +huesped); // imprime datos de numero de habitacion y nombre del huesped que se registro
         callback(); // llamada en espera 
     }, 2000);
+}
 
+function listar(callback){
+    console.log("========== Habitaciones =========");
+    habitaciones.forEach(habitacion=> {
+        console.log(`Numero de habitacion: ${habitacion.numero} | Tipo de habitacion: ${habitacion.tipo} | 
+            Precio por noche ${habitacion.precioNoche} | Estado ${habitacion.estado} | Huesped ${habitacion.huesped}`);        
+    });
+    callback();
 }
 
 
