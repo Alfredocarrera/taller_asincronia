@@ -18,7 +18,7 @@ function menu(){
             console.log("ingrese datos...")
             break;
         case "2":
-            mostrar(menu);
+            listar(menu);
             break;
         case "3":
             buscar(menu);
@@ -58,7 +58,7 @@ function registrar(callback){
     console.log(habitacion);
     setTimeout(function(){
         habitaciones.push(habitacion); //ingreso los elementos del diccionario habitacion en el arreglo habitaciones
-        console.log("Habitacion registrada, "+numero, +huesped); // imprime datos de numero de habitacion y nombre del huesped que se registro
+        console.log("Habitacion registrada correctamente, "+numero, +huesped); // imprime datos de numero de habitacion y nombre del huesped que se registro
         callback(); // llamada en espera 
     }, 2000);
 }
@@ -71,6 +71,68 @@ function listar(callback){
     });
     callback();
 }
+function buscar(callback){
+    let num = prompt("Numero de habitacion a  buscar:");
+    console.log("Buscando en la base de datos del hotel...")
+    setTimeout(function(){
+        let habBuscada = habitaciones.find(habitacion=>{
+            return habitacion.numero === parseInt(num);
+        });
+        if (habBuscada){
+            console.log("========== Habitacion Encontrada ==========");
+            console.log(`Numero de habitacion: ${habBuscada.numero} | Tipo de habitacion: ${habBuscada.tipo} 
+                | Precio de habitacion por noche: ${habBuscada.precioNoche} | Estado de la habitacion: ${habBuscada.estado} | 
+                 Nombre del huesped: ${habBuscada.huesped}`);
+        } else{
+            console.log("Habitacion no encontrada...")
+        }
+        callback();
+    }, 2000)
+}
+function actualizar(callback){
+     let input = prompt("Numero de habitacion a actualizar:");
+     
+     if (!input){
+        console.log("operacion cancelada.");
+        if (typeof callback === "function") callback();
+        return;
+    }
 
+    let num = parseInt(input,10);  //input es una variable que guarda el texto directo y el parametro 10 lo combierte en base decimal para que sea un numero como lo hace parseInt.
+    console.log("Buscando en la base de datos del hotel...");
 
+    setTimeout(function(){
+        let habBuscada = habitaciones.find(function(habitacion) { //buscando habitacion
+            return habitacion.numero === num;           
+        });
+        if (habBuscada){
+            console.log(`Habitacion encontrada. Estado actual:  ${habBuscada.estado} `); // verificamos si existe hacemos cambios
+            let nuevoEstado = prompt("Actualizar estado de habitacion (libre/limpieza): "); //solicitamos coloque nuevo estado de la habitacion
+            if (nuevoEstado) {
+                habBuscada.estado = nuevoEstado.trim();
+                let estadoNuevo = habBuscada.estado.toLowerCase(); // El uso de .toLowerCase(). Convierte el texto a minúsculas.
+                // Lógica según el estado ingresado
+                if (estadoNuevo === "ocupado") {            //Si el estado es "ocupado", pediremos el nombre con un nuevo prompt y se lo asigna a habBuscada.huesped.
+                    let nombreHuesped = prompt("Ingrese el nombre del huésped:");
+                    habBuscada.huesped = nombreHuesped ? nombreHuesped.trim() : "Sin nombre";//Uso de .trim(): quita espacios extra.
+                } else if (estadoNuevo === "libre") {  //Si el estado es "libre", asigna "Ninguno" (o "") a habBuscada.huesped.
+                    habBuscada.huesped = "Ninguno"; // Limpiamos el nombre del huésped
+                }
+
+                console.log("========== Estado Actualizado ==========");
+                console.log(`Habitación: ${habBuscada.numero} | Nuevo Estado: ${habBuscada.estado} | Huésped: ${habBuscada.huesped}`);
+            } else {
+                console.log("No se ingresó un estado válido.");
+            }
+
+        } else {
+            console.log("Habitación no encontrada...");
+        }
+
+        // Executamos el callback
+        if (typeof callback === "function") {
+            callback();
+        }
+    }, 3000);
+}
 menu();
