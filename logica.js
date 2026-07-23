@@ -8,7 +8,7 @@ function menu(){
         "2. Listar habitacion\n"+
         "3. Buscar habitacion por numero\n"+
         "4. Cambiar estado de la habitacion\n"+
-        "5. Eliminar habitacion \n"+
+        "5. Eliminar habitacion\n"+
         "6. Salir"
     )
 
@@ -35,3 +35,4 @@ function menu(){
             console.log("Opción no válida!");
             menu();
     }
+}
