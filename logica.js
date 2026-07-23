@@ -63,13 +63,26 @@ function registrar(callback){
     }, 2000);
 }
 
-function listar(callback){
+function listar(callback) {
     console.log("========== Habitaciones =========");
-    habitaciones.forEach(habitacion=> {
-        console.log(`Numero de habitacion: ${habitacion.numero} | Tipo de habitacion: ${habitacion.tipo} | 
-            Precio por noche ${habitacion.precioNoche} | Estado ${habitacion.estado} | Huesped ${habitacion.huesped}`);        
-    });
-    callback();
+    
+    // Verificamos si el arreglo tiene elementos si no imprime el mensaje
+    if (habitaciones.length === 0) {
+        console.log("No hay habitaciones registradas en la base de datos del hotel.");
+    } else {              // Si hay al menos una habitación registrada (length > 0), entra al forEach y las muestra el registro
+        habitaciones.forEach(habitacion => {
+            console.log(
+                `Número de habitación: ${habitacion.numero} | Tipo de habitación: ${habitacion.tipo} | ` +
+                `Precio por noche: $${habitacion.precioNoche} | Estado: ${habitacion.estado} | Huésped: ${habitacion.huesped}`
+            );
+        });
+    }
+
+    // Ejecutamos el callback para regresar al menú
+    if (typeof callback === "function") {  //para asegurar que no falle si en algún momento llamamos a listar() sin pasarle el argumento.
+        callback();                        //dato de investigacion "typeof" es un operador que sirve para averiguar el tipo de dato que tiene una variable o una expresión. 
+                                           //Te devuelve un texto (string) con el nombre del tipo.
+    }
 }
 function buscar(callback){
     let num = prompt("Numero de habitacion a  buscar:");
