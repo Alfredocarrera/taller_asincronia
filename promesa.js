@@ -1,7 +1,12 @@
 //creacion de menu de hotel "5 sonrisas"
 let habitaciones = []; // arreglo de la variable habitaciones donde se almacena todos las caracteristicas 
                        // del objeto habitacion.
-function menu(){
+
+function tiempoDeEspera(ms) {
+    return new Promise((resolve, reject) => setTimeout(resolve, ms));
+}
+
+async function menu(){
     let opcion = prompt(                                        
         "************** Hotel 5 Sonrisas **************\n"+
         "1. Registrar nueva habitacion\n"+
@@ -14,32 +19,33 @@ function menu(){
 
     switch(opcion){ //sekeccion de menu que es recursivo
         case "1":
-            registrar(menu);
+            await registrar();
             console.log("ingrese datos...")
             break;
         case "2":
-            listar(menu);
+            await listar();
             break;
         case "3":
-            buscar(menu);
+            await buscar();
             break;
         case "4":
-            actualizar(menu);
+            await actualizar();
             break;
         case "5":
-            eliminar(menu);
+            await eliminar();
             break;
         case "6":
             console.log("Saliendo....");
-            break;
+            return;
         default:
             console.log("Opción no válida!");
             menu();
     }
+    menu();
 }
 
 
-function registrar(callback){
+async function registrar(){
     let numero = parseInt(prompt("numero de habitacion"));
     let tipo = prompt("tipo de habitacion(-Sencilla-Doble-Suite-)");
     let precioNoche = parseFloat(prompt("Precio por noche"));
@@ -56,12 +62,11 @@ function registrar(callback){
 
     console.log("validando informacion de la habitacion...");
     console.log(habitacion);
-    setTimeout(function(){
-        habitaciones.push(habitacion); //ingreso los elementos del diccionario habitacion en el arreglo habitaciones
-        console.log("Habitacion registrada correctamente, "+numero, +huesped); // imprime datos de numero de habitacion y nombre del huesped que se registro
-        callback(); // llamada en espera 
-    }, 2000);
+    await tiempoDeEspera(3000);
+    habitaciones.push(habitacion); //ingreso los elementos del diccionario habitacion en el arreglo habitaciones
+        console.log("Habitacion registrada, "+numero, +huesped); // imprime datos de numero de habitacion y nombre del huesped que se registro
 }
+
 
 function listar(callback) {
     console.log("========== Habitaciones =========");
