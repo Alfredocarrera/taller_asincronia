@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-let habitaciones = [];  // arreglo de habitaciones
-=======
 //creacion de menu de hotel "5 sonrisas"
 let habitaciones = []; // arreglo de la variable habitaciones donde se almacena todos las caracteristicas 
                        // del objeto habitacion.
@@ -193,4 +190,3 @@ function eliminar(callback) {
     }
 }
 menu();
->>>>>>> creando_promesas
